@@ -1,100 +1,57 @@
 {
   "tracks": {
     "sft": {
-      "total": 41,
+      "total": 46,
       "quality": {
-        "great": 14,
-        "good": 17,
-        "mediocre": 9,
-        "poor": 1
+        "great": 16,
+        "good": 20,
+        "mediocre": 8,
+        "poor": 2
       },
       "tasks": {
-        "devops": 38,
+        "devops": 43,
         "research": 3
       },
-      "tools": [
-        "apply_patch",
-        "create_goal",
-        "cron",
-        "edit",
-        "exec",
-        "image",
-        "memory_search",
-        "process",
-        "read",
-        "sessions_history",
-        "sessions_list",
-        "skill_workshop",
-        "update_plan",
-        "web_fetch",
-        "web_search",
-        "write"
-      ]
+      "verticals": {
+        "nail_salon": 13,
+        "general_assistant": 33
+      }
     },
     "agentic": {
-      "total": 41,
+      "total": 46,
       "quality": {
-        "great": 14,
-        "good": 17,
-        "mediocre": 9,
-        "poor": 1
+        "great": 16,
+        "good": 20,
+        "mediocre": 8,
+        "poor": 2
       },
       "tasks": {
-        "devops": 38,
+        "devops": 43,
         "research": 3
       },
-      "tools": [
-        "apply_patch",
-        "create_goal",
-        "cron",
-        "edit",
-        "exec",
-        "image",
-        "memory_search",
-        "process",
-        "read",
-        "sessions_history",
-        "sessions_list",
-        "skill_workshop",
-        "update_plan",
-        "web_fetch",
-        "web_search",
-        "write"
-      ]
+      "verticals": {
+        "nail_salon": 13,
+        "general_assistant": 33
+      }
     },
     "distill": {
-      "total": 41,
+      "total": 46,
       "quality": {
-        "great": 14,
-        "good": 17,
-        "mediocre": 9,
-        "poor": 1
+        "great": 16,
+        "good": 20,
+        "mediocre": 8,
+        "poor": 2
       },
       "tasks": {
-        "devops": 38,
+        "devops": 43,
         "research": 3
       },
-      "tools": [
-        "apply_patch",
-        "create_goal",
-        "cron",
-        "edit",
-        "exec",
-        "image",
-        "memory_search",
-        "process",
-        "read",
-        "sessions_history",
-        "sessions_list",
-        "skill_workshop",
-        "update_plan",
-        "web_fetch",
-        "web_search",
-        "write"
-      ]
+      "verticals": {
+        "nail_salon": 13,
+        "general_assistant": 33
+      }
     }
   },
-  "total_sessions": 6,
-  "total_traces": 123,
-  "updated_at": "2026-07-13 11:52:58"
+  "total_traces": 138,
+  "updated_at": "2026-07-13 15:40"
 }
