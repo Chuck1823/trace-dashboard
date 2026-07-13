@@ -14,39 +14,39 @@
     .header-right a { color: #4fc3f7; font-size: 0.75rem; text-decoration: none; }
     .header-right span { color: #666; font-size: 0.65rem; }
 
-    .datasets { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-    @media (max-width: 768px) { .datasets { grid-template-columns: 1fr; } .header { flex-direction: column; } }
+    .goals { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .goal { background: #1a1a24; border: 1px solid #2a2a35; border-radius: 8px; padding: 0.6rem 0.8rem; display: flex; gap: 0.5rem; align-items: center; font-size: 0.8rem; }
+    .goal .glabel { color: #444; font-size: 0.7rem; text-transform: uppercase; }
+    .goal .gval { color: #fff; font-weight: 600; }
+    .goal .gpct { color: #00e676; font-size: 0.7rem; }
 
-    .dc { background: #1a1a24; border-radius: 10px; padding: 1rem; border: 1px solid #2a2a35; }
-    .dc-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem; }
-    .dc-name { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #eee; }
-    .dc-total { font-size: 0.75rem; color: #4fc3f7; }
-    .dc-desc { font-size: 0.7rem; color: #777; margin-bottom: 0.6rem; line-height: 1.3; }
-    .sub-title { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin: 0.6rem 0 0.35rem; font-weight: 600; }
+    .ds { margin-bottom: 2rem; }
+    .ds-head { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; color: #eee; text-transform: uppercase; letter-spacing: 0.08em; }
+    .ds-total { font-size: 0.75rem; color: #444; font-weight: 400; }
+    .ds-desc { font-size: 0.7rem; color: #666; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #222; }
 
-    .q-row { display: flex; align-items: center; margin: 0.2rem 0; gap: 0.3rem; }
-    .q-label { width: 22px; font-size: 0.65rem; text-transform: uppercase; }
-    .q-label.great { color: #00e676; }
-    .q-label.good { color: #4fc3f7; }
-    .q-label.mediocre { color: #ffb74d; }
-    .q-label.poor { color: #ef5350; }
+    .sub { font-size: 0.7rem; color: #444; text-transform: uppercase; letter-spacing: 0.1em; margin: 0.75rem 0 0.35rem; font-weight: 600; }
+
+    .q-row { display: flex; align-items: center; margin: 0.2rem 0; gap: 0.4rem; }
+    .q-lbl { width: 40px; font-size: 0.6rem; text-transform: uppercase; }
+    .q-lbl.great { color: #00e676; }
+    .q-lbl.good { color: #4fc3f7; }
+    .q-lbl.mediocre { color: #ffb74d; }
+    .q-lbl.poor { color: #ef5350; }
     .bar-bg { flex: 1; height: 4px; background: #252530; border-radius: 2px; overflow: hidden; }
     .bar { height: 100%; border-radius: 2px; }
     .bar.great { background: #00e676; }
     .bar.good { background: #4fc3f7; }
     .bar.mediocre { background: #ffb74d; }
     .bar.poor { background: #ef5350; }
-    .q-count { width: 20px; text-align: right; font-size: 0.65rem; font-weight: 600; color: #999; }
+    .q-ct { width: 20px; text-align: right; font-size: 0.6rem; color: #999; }
 
-    .v-row { display: flex; align-items: center; margin: 0.2rem 0; gap: 0.3rem; }
-    .v-pill { padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.6rem; background: #2a2a35; color: #aaa; min-width: 45px; text-align: center; text-align: center; }
-    .v-count { font-size: 0.65rem; color: #999; }
-
-    .c-row { display: flex; align-items: center; margin: 0.2rem 0; gap: 0.3rem; }
-    .c-pill { padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.6rem; background: #2a2a35; color: #aaa; min-width: 45px; text-align: center; }
-    .c-count { font-size: 0.65rem; color: #999; }
+    .row-flex { display: flex; align-items: center; gap: 0.4rem; margin: 0.2rem 0; }
+    .pill { padding: 0.1rem 0.5rem; border-radius: 8px; font-size: 0.6rem; background: #2a2a35; color: #aaa; min-width: 40px; text-align: center; }
+    .ct { font-size: 0.6rem; color: #666; }
 
     .refresh-note { color: #555; font-size: 0.65rem; text-align: center; padding-top: 1rem; border-top: 1px solid #2a2a35; }
+    @media (max-width: 768px) { .header { flex-direction: column; } }
   </style>
 </head>
 <body>
@@ -58,63 +58,72 @@
     </div>
   </div>
 
-  <div class="datasets" id="datasets"></div>
+  <div class="goals" id="goals"></div>
+  <div id="datasetSections"></div>
 
-  <div class="refresh-note">Rebuild stats: python3 experiment/scripts/export-all.py, then push updated stats.json</div>
+  <div class="refresh-note">Rebuild stats: python3 experiment/scripts/export-all.py, then push stats.json</div>
 
   <script>
-    const defs = {
-      sft: "SFT: Plain text only. Compatible with every fine-tuning API (OpenAI, Together, Unsloth, LLaMA-Factory).",
-      agentic: "Agentic: Tool-call and tool-result messages. Compatible with OpenAI, Together, vLLM.",
-      distill: "Distill: SFT + reasoning/thinking content. Captures full thought process.",
+    const descriptions = {
+      sft: 'SFT (Supervised Fine-Tuning): Plain text only — system prompt, user messages, assistant responses. Compatible with every fine-tuning API (OpenAI, Together, Fireworks, Unsloth, LLaMA-Factory, Pioneer).',
+      agentic: 'Agentic (Tool-Call): Includes tool_calls and tool_result messages. Traces show the agent calling tools, getting results, and responding.',
+      distill: 'Distill (SFT + Reasoning): Like SFT but each assistant message includes both the response and the internal reasoning/thinking.'
     };
-    const vNames = { nail_salon: "Nail Salon", barber: "Barber Shop", dry_cleaner: "Dry Cleaner", restaurant: "Restaurant", general_assistant: "General" };
+
+    const vNames = { nail_salon: 'Nail Salon', barber: 'Barber Shop', dry_cleaner: 'Dry Cleaner', restaurant: 'Restaurant', general_assistant: 'General' };
 
     async function load() {
-      try {
-        const r = await fetch('stats.json');
-        render(await r.json());
-      } catch(e) { document.body.innerHTML = '<p style="color:#ef5350;padding:2rem">Failed to load stats.json</p>'; }
+      try { const r = await fetch('stats.json'); render(await r.json()); }
+      catch(e) { document.body.innerHTML = '<p style="color:#ef5350;padding:1rem">Failed to load stats.json</p>'; }
     }
 
     function render(data) {
       document.getElementById('updated').textContent = data.updated_at || '';
-      const el = document.getElementById('datasets');
-      let html = '';
 
+      // Goal bars: per-dataset
+      const target = 200;
+      const goals = document.getElementById('goals');
+      let gHTML = '';
       for (const [name, track] of Object.entries(data.tracks)) {
-        // Quality bars
-        const maxQ = Math.max(...Object.values(track.quality), 1);
-        let qHTML = '';
-        for (const [q, c] of Object.entries(track.quality)) {
-          qHTML += '<div class="q-row"><span class="q-label ' + q + '">' + q[0].toUpperCase() + '</span><div class="bar-bg"><div class="bar ' + q + '" style="width:' + (c / maxQ * 100) + '%"></div></div><span class="q-count">' + c + '</span></div>';
-        }
-
-        // Verticals for this track
-        let vHTML = '';
-        if (track.verticals) {
-          for (const [v, c] of Object.entries(track.verticals)) {
-            vHTML += '<div class="v-row"><span class="v-pill">' + (vNames[v] || v) + '</span><span class="v-count">' + c + '</span></div>';
-          }
-        }
-
-        // Categories for this track
-        let cHTML = '';
-        if (track.tasks) {
-          for (const [cat, c] of Object.entries(track.tasks).sort((a, b) => b[1] - a[1])) {
-            cHTML += '<div class="c-row"><span class="c-pill">' + cat + '</span><span class="c-count">' + c + '</span></div>';
-          }
-        }
-
-        html += '<div class="dc">' +
-          '<div class="dc-header"><span class="dc-name">' + name + '</span><span class="dc-total">' + track.total + ' traces</span></div>' +
-          '<div class="dc-desc">' + (defs[name] || '') + '</div>' +
-          '<div class="sub-title">Quality</div>' + qHTML +
-          '<div class="sub-title">Verticals</div>' + (vHTML || '<span style="color:#555;font-size:0.65rem">None yet</span>') +
-          '<div class="sub-title">Categories</div>' + (cHTML || '<span style="color:#555;font-size:0.65rem">None yet</span>') +
-          '</div>';
+        const pct = Math.min(100, Math.round((track.total / target) * 100));
+        gHTML += '<div class="goal"><span class="glabel">' + name.toUpperCase() + '</span><span class="gval">' + track.total + '/' + target + '</span><span class="gpct">' + pct + '%</span></div>';
       }
-      el.innerHTML = html;
+      goals.innerHTML = gHTML;
+
+      // Per-dataset sections
+      const sections = document.getElementById('datasetSections');
+      sections.innerHTML = '';
+      for (const [name, track] of Object.entries(data.tracks)) {
+        let html = '<div class="ds">';
+        html += '<div class="ds-head">' + name + ' <span class="ds-total">' + track.total + ' traces</span></div>';
+        html += '<div class="ds-desc">' + (descriptions[name] || '') + '</div>';
+
+        // Quality
+        const maxQ = Math.max(...Object.values(track.quality), 1);
+        html += '<div class="sub">Quality</div>';
+        for (const [q, c] of Object.entries(track.quality)) {
+          html += '<div class="q-row"><span class="q-lbl ' + q + '">' + q + '</span><div class="bar-bg"><div class="bar ' + q + '" style="width:' + (c/maxQ*100) + '%"></div></div><span class="q-ct">' + c + '</span></div>';
+        }
+
+        // Categories for this dataset
+        if (track.tasks && Object.keys(track.tasks).length) {
+          html += '<div class="sub">Categories</div>';
+          for (const [cat, c] of Object.entries(track.tasks)) {
+            html += '<div class="row-flex"><span class="pill">' + cat + '</span><span class="ct">' + c + '</span></div>';
+          }
+        }
+
+        // Verticals for this dataset
+        if (track.verticals && Object.keys(track.verticals).length) {
+          html += '<div class="sub">Verticals</div>';
+          for (const [v, c] of Object.entries(track.verticals)) {
+            html += '<div class="row-flex"><span class="pill">' + (vNames[v] || v) + '</span><span class="ct">' + c + '</span></div>';
+          }
+        }
+
+        html += '</div>';
+        sections.innerHTML += html;
+      }
     }
 
     load();
