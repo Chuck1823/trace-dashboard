@@ -14,45 +14,39 @@
     .header-right a { color: #4fc3f7; font-size: 0.75rem; text-decoration: none; }
     .header-right span { color: #666; font-size: 0.65rem; }
 
-    .dataset-section { margin-bottom: 2rem; }
-    .dataset-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.25rem; }
-    .dataset-name { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #eee; }
-    .dataset-count { font-size: 1.5rem; font-weight: 700; color: #00e676; }
-    .dataset-desc { font-size: 0.7rem; color: #666; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #2a2a35; }
+    .datasets { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    @media (max-width: 768px) { .datasets { grid-template-columns: 1fr; } .header { flex-direction: column; } }
 
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-    .card { background: #1a1a24; border-radius: 10px; padding: 1rem; border: 1px solid #2a2a35; }
-    .card-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; margin-bottom: 0.75rem; }
+    .dc { background: #1a1a24; border-radius: 10px; padding: 1rem; border: 1px solid #2a2a35; }
+    .dc-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem; }
+    .dc-name { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #eee; }
+    .dc-total { font-size: 0.75rem; color: #4fc3f7; }
+    .dc-desc { font-size: 0.7rem; color: #777; margin-bottom: 0.6rem; line-height: 1.3; }
+    .sub-title { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin: 0.6rem 0 0.35rem; font-weight: 600; }
 
-    .q-row { display: flex; align-items: center; margin: 0.3rem 0; gap: 0.4rem; }
-    .q-label { width: 55px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.3px; }
+    .q-row { display: flex; align-items: center; margin: 0.2rem 0; gap: 0.3rem; }
+    .q-label { width: 22px; font-size: 0.65rem; text-transform: uppercase; }
     .q-label.great { color: #00e676; }
     .q-label.good { color: #4fc3f7; }
     .q-label.mediocre { color: #ffb74d; }
     .q-label.poor { color: #ef5350; }
-    .bar-bg { flex: 1; height: 5px; background: #252530; border-radius: 3px; overflow: hidden; }
-    .bar { height: 100%; border-radius: 3px; }
+    .bar-bg { flex: 1; height: 4px; background: #252530; border-radius: 2px; overflow: hidden; }
+    .bar { height: 100%; border-radius: 2px; }
     .bar.great { background: #00e676; }
     .bar.good { background: #4fc3f7; }
     .bar.mediocre { background: #ffb74d; }
     .bar.poor { background: #ef5350; }
-    .q-count { width: 25px; text-align: right; font-size: 0.7rem; font-weight: 600; color: #999; }
+    .q-count { width: 20px; text-align: right; font-size: 0.65rem; font-weight: 600; color: #999; }
 
-    .cat-section { margin-bottom: 1.5rem; }
-    .cat-section h3 { font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
-    .cat-row { display: flex; align-items: center; gap: 0.4rem; margin: 0.3rem 0; }
-    .cat-pill { padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.65rem; background: #2a2a35; color: #aaa; min-width: 50px; text-align: center; }
-    .cat-count { font-size: 0.7rem; color: #999; }
+    .v-row { display: flex; align-items: center; margin: 0.2rem 0; gap: 0.3rem; }
+    .v-pill { padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.6rem; background: #2a2a35; color: #aaa; min-width: 45px; text-align: center; text-align: center; }
+    .v-count { font-size: 0.65rem; color: #999; }
 
-    .goal-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.65rem; font-weight: 600; margin-top: 0.5rem; }
-    .goal-badge.on-track { background: rgba(0,230,118,0.15); color: #00e676; }
-    .goal-badge.behind { background: rgba(255,183,77,0.15); color: #ffb74d; }
-    .goal-badge.far { background: rgba(239,83,80,0.15); color: #ef5350; }
+    .c-row { display: flex; align-items: center; margin: 0.2rem 0; gap: 0.3rem; }
+    .c-pill { padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.6rem; background: #2a2a35; color: #aaa; min-width: 45px; text-align: center; }
+    .c-count { font-size: 0.65rem; color: #999; }
 
     .refresh-note { color: #555; font-size: 0.65rem; text-align: center; padding-top: 1rem; border-top: 1px solid #2a2a35; }
-
-    .subgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-    @media (max-width: 768px) { .grid, .subgrid { grid-template-columns: 1fr; } .header { flex-direction: column; } }
   </style>
 </head>
 <body>
@@ -60,83 +54,70 @@
     <h1>Trace Dataset Monitor</h1>
     <div class="header-right">
       <a href="https://chuck1823.github.io/mom-and-pop-site/" target="_blank">Mom & Pop</a>
-      <a href="https://chuck1823.github.io/famcloud-site/" target="_blank">FamCloud</a>
       <span id="updated"></span>
     </div>
   </div>
 
-  <div id="goalsRow" style="margin-bottom:1.5rem"></div>
-
-  <div id="datasetSections"></div>
+  <div class="datasets" id="datasets"></div>
 
   <div class="refresh-note">Rebuild stats: python3 experiment/scripts/export-all.py, then push updated stats.json</div>
 
   <script>
-    async function loadStats() {
-      try {
-        const res = await fetch('stats.json');
-        const data = await res.json();
-        render(data);
-      } catch(e) { console.error(e); document.body.innerHTML = '<p style="color:#ef5350;padding:1rem">Failed to load stats.json</p>'; }
-    }
-
-    const descriptions = {
-      sft: 'SFT (Supervised Fine-Tuning): Plain text only — system prompt, user messages, assistant responses. Compatible with every fine-tuning API (OpenAI, Together, Fireworks, Unsloth, LLaMA-Factory, Pioneer).',
-      agentic: 'Agentic (Tool-Call): Includes tool_calls and tool_result messages. Traces show the agent calling tools, getting results, and responding. Compatible with OpenAI, Together, Fireworks, vLLM.',
-      distill: 'Distill (SFT + Reasoning): Like SFT but each assistant message includes both the response (content) and the internal reasoning/thinking. Captures the full thought process for knowledge distillation into smaller models.'
+    const defs = {
+      sft: "SFT: Plain text only. Compatible with every fine-tuning API (OpenAI, Together, Unsloth, LLaMA-Factory).",
+      agentic: "Agentic: Tool-call and tool-result messages. Compatible with OpenAI, Together, vLLM.",
+      distill: "Distill: SFT + reasoning/thinking content. Captures full thought process.",
     };
+    const vNames = { nail_salon: "Nail Salon", barber: "Barber Shop", dry_cleaner: "Dry Cleaner", restaurant: "Restaurant", general_assistant: "General" };
+
+    async function load() {
+      try {
+        const r = await fetch('stats.json');
+        render(await r.json());
+      } catch(e) { document.body.innerHTML = '<p style="color:#ef5350;padding:2rem">Failed to load stats.json</p>'; }
+    }
 
     function render(data) {
       document.getElementById('updated').textContent = data.updated_at || '';
+      const el = document.getElementById('datasets');
+      let html = '';
 
-      // Goals row: per-dataset progress toward 200
-      const goalsRow = document.getElementById('goalsRow');
-      const parts = [];
-      const target = 200;
       for (const [name, track] of Object.entries(data.tracks)) {
-        const pct = Math.min(100, Math.round((track.total / target) * 100));
-        let cls = 'far';
-        if (pct >= 50) cls = 'on-track';
-        else if (pct >= 25) cls = 'behind';
-        parts.push('<div class="goal-badge ' + cls + '">' + name.toUpperCase() + ' ' + track.total + '/' + target + ' (' + pct + '%)</div>');
-      }
-      goalsRow.innerHTML = parts.join(' ');
-
-      // Each dataset gets its own section with quality + categories
-      const sections = document.getElementById('datasetSections');
-      sections.innerHTML = '';
-      for (const [name, track] of Object.entries(data.tracks)) {
-        let section = '<div class="dataset-section">';
-        section += '<div class="dataset-header"><span class="dataset-name">' + (name === 'sft' ? 'SFT' : name === 'agentic' ? 'Agentic' : 'Distill') + '</span><span class="dataset-count">' + track.total + ' traces</span></div>';
-        section += '<div class="dataset-desc">' + (descriptions[name] || '') + '</div>';
-
         // Quality bars
         const maxQ = Math.max(...Object.values(track.quality), 1);
         let qHTML = '';
         for (const [q, c] of Object.entries(track.quality)) {
-          qHTML += '<div class="q-row"><span class="q-label ' + q + '">' + q + '</span><div class="bar-bg"><div class="bar ' + q + '" style="width:' + (c/maxQ*100) + '%"></div></div><span class="q-count">' + c + '</span></div>';
+          qHTML += '<div class="q-row"><span class="q-label ' + q + '">' + q[0].toUpperCase() + '</span><div class="bar-bg"><div class="bar ' + q + '" style="width:' + (c / maxQ * 100) + '%"></div></div><span class="q-count">' + c + '</span></div>';
         }
 
-        // Categories for this specific dataset
-        let catHTML = '';
-        if (track.tasks && Object.keys(track.tasks).length) {
-          const maxCat = Math.max(...Object.values(track.tasks), 1);
-          const sorted = Object.entries(track.tasks).sort((a, b) => b[1] - a[1]);
-          for (const [cat, c] of sorted) {
-            catHTML += '<div class="cat-row"><span class="cat-pill">' + cat + '</span><div class="bar-bg" style="flex:1"><div class="bar good" style="width:' + (c/maxCat*100) + '%;background:#4fc3f7"></div></div><span class="cat-count">' + c + '</span></div>';
+        // Verticals for this track
+        let vHTML = '';
+        if (track.verticals) {
+          for (const [v, c] of Object.entries(track.verticals)) {
+            vHTML += '<div class="v-row"><span class="v-pill">' + (vNames[v] || v) + '</span><span class="v-count">' + c + '</span></div>';
           }
         }
 
-        section += '<div class="grid">';
-        section += '<div class="card"><div class="card-title">Quality</div>' + qHTML + '</div>';
-        section += '<div class="card"><div class="card-title">Categories</div>' + (catHTML || '<span style="color:#555;font-size:0.7rem">No categories available</span>') + '</div>';
-        section += '</div></div>';
+        // Categories for this track
+        let cHTML = '';
+        if (track.tasks) {
+          for (const [cat, c] of Object.entries(track.tasks).sort((a, b) => b[1] - a[1])) {
+            cHTML += '<div class="c-row"><span class="c-pill">' + cat + '</span><span class="c-count">' + c + '</span></div>';
+          }
+        }
 
-        sections.innerHTML += section;
+        html += '<div class="dc">' +
+          '<div class="dc-header"><span class="dc-name">' + name + '</span><span class="dc-total">' + track.total + ' traces</span></div>' +
+          '<div class="dc-desc">' + (defs[name] || '') + '</div>' +
+          '<div class="sub-title">Quality</div>' + qHTML +
+          '<div class="sub-title">Verticals</div>' + (vHTML || '<span style="color:#555;font-size:0.65rem">None yet</span>') +
+          '<div class="sub-title">Categories</div>' + (cHTML || '<span style="color:#555;font-size:0.65rem">None yet</span>') +
+          '</div>';
       }
+      el.innerHTML = html;
     }
 
-    loadStats();
+    load();
   </script>
 </body>
 </html>
