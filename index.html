@@ -13,21 +13,22 @@
     .header-right { display: flex; gap: 1rem; align-items: center; }
     .header-right a { color: #4fc3f7; font-size: 0.75rem; text-decoration: none; }
     .header-right span { color: #666; font-size: 0.65rem; }
-    .big-stat { text-align: center; margin-bottom: 2rem; }
-    .big-num { font-size: 3.5rem; font-weight: 800; color: #00e676; line-height: 1; }
-    .big-label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-
-    /* Tooltip - always visible labels, tap-friendly */
-    .track-card { margin-bottom: 1.5rem; }
-    .track-header { display: flex; gap: 0.5rem; align-items: baseline; flex-wrap: wrap; margin-bottom: 0.25rem; }
-    .track-name { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; }
-    .track-desc { font-size: 0.75rem; color: #666; }
-    .track-total { font-size: 1.5rem; font-weight: 700; color: #00e676; }
-
+    .dataset-section { margin-bottom: 2rem; }
+    .dataset-header { margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #2a2a35; }
+    .dataset-name { font-size: 1rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.1em; }
+    .dataset-count { font-size: 0.85rem; color: #00e676; font-weight: 600; margin-left: 0.5rem; }
+    .dataset-desc { font-size: 0.75rem; color: #888; margin-top: 0.25rem; }
+    .goal-section { margin-bottom: 2rem; }
+    .goal-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: baseline; }
+    .goal-item { background: #1a1a24; border: 1px solid #2a2a35; border-radius: 8px; padding: 0.5rem 0.75rem; display: flex; gap: 0.5rem; align-items: center; }
+    .goal-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; }
+    .goal-val { font-size: 0.85rem; font-weight: 700; color: #fff; }
+    .goal-pct { font-size: 0.7rem; color: #00e676; }
     .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
     .card { background: #1a1a24; border-radius: 10px; padding: 1rem; border: 1px solid #2a2a35; }
     .card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem; }
-
+    .track-name { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; }
+    .track-total { font-size: 1.5rem; font-weight: 700; color: #00e676; }
     .q-row { display: flex; align-items: center; margin: 0.3rem 0; gap: 0.4rem; }
     .q-label { width: 55px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.3px; }
     .q-label.great { color: #00e676; }
@@ -41,18 +42,11 @@
     .bar.mediocre { background: #ffb74d; }
     .bar.poor { background: #ef5350; }
     .q-count { width: 25px; text-align: right; font-size: 0.7rem; font-weight: 600; color: #999; }
-
     .cat-section { background: #1a1a24; border-radius: 10px; padding: 1rem; border: 1px solid #2a2a35; margin-bottom: 1.5rem; }
     .cat-section h3 { font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
     .cat-row { display: flex; align-items: center; gap: 0.4rem; margin: 0.3rem 0; }
     .cat-pill { padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.65rem; background: #2a2a35; color: #aaa; min-width: 50px; text-align: center; }
     .cat-count { font-size: 0.7rem; color: #999; }
-
-    .goal-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.65rem; font-weight: 600; margin-top: 0.5rem; }
-    .goal-badge.on-track { background: rgba(0,230,118,0.15); color: #00e676; }
-    .goal-badge.behind { background: rgba(255,183,77,0.15); color: #ffb74d; }
-    .goal-badge.far { background: rgba(239,83,80,0.15); color: #ef5350; }
-
     .refresh-note { color: #555; font-size: 0.65rem; text-align: center; padding-top: 1rem; border-top: 1px solid #2a2a35; }
     @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .header { flex-direction: column; } }
   </style>
@@ -61,75 +55,81 @@
   <div class="header">
     <h1>Trace Dataset Monitor</h1>
     <div class="header-right">
-      <a href="https://chuck1823.github.io/mom-and-pop-site/" target="_blank">Mom and Pop</a>
+      <a href="https://chuck1823.github.io/mom-and-pop-site/" target="_blank">Mom & Pop</a>
       <a href="https://chuck1823.github.io/famcloud-site/" target="_blank">FamCloud</a>
       <span id="updated"></span>
     </div>
   </div>
 
-  <div id="datasetCards"></div>
+  <div id="goalsSection" class="goal-section"></div>
 
-  <div class="cat-section" id="catSection"></div>
+  <div id="datasetCards"></div>
 
   <div class="refresh-note">Rebuild stats: python3 experiment/scripts/export-all.py, then push updated stats.json</div>
 
   <script>
-    const defs = {
-      sft: 'SFT (Supervised Fine-Tuning): Plain text only - system prompt, user messages, assistant responses. Compatible with every fine-tuning API (OpenAI, Together, Fireworks, Unsloth, LLaMA-Factory, Pioneer).',
-      agentic: 'Agentic (Tool-Call): Includes tool_calls and tool_result messages. Traces show the agent calling tools, getting results, and responding. Compatible with OpenAI, Together, Fireworks, vLLM.',
-      distill: 'Distill (SFT + Reasoning): Like SFT but each assistant message includes both the response (content) and the internal reasoning/thinking. Captures the full thought process for knowledge distillation into smaller models.'
-    };
-    const trackDisplayNames = { sft: 'SFT (Supervised Fine-Tuning)', agentic: 'Agentic (Tool-Call)', distill: 'Distill (SFT + Reasoning)' };
-
-    async function load() {
+    async function loadStats() {
       try {
         const res = await fetch('stats.json');
         const data = await res.json();
         render(data);
-      } catch(e) { document.body.innerHTML = '<p style="color:#ef5350;padding:1rem">Failed to load stats.json</p>'; }
+      } catch(e) { console.error(e); document.body.innerHTML = '<p style="color:#ef5350;padding:1rem">Failed to load stats.json</p>'; }
     }
 
-    function render(data) {
-      document.getElementById('updated').textContent = data.updated_at || '';
+    const defs = {
+      sft: 'SFT (Supervised Fine-Tuning): Plain text only - system prompt, user messages, assistant responses. Compatible with every fine-tuning API (OpenAI, Together, Fireworks, Unsloth, LLaMA-Factory, Pioneer).',
+      agentic: 'Agentic (Tool-Call): Includes tool_calls and tool_result messages. Traces show the agent calling tools, getting results, and responding.',
+      distill: 'Distill (SFT + Reasoning): Like SFT but each assistant message includes both the response and the internal reasoning/thinking. Captures the full thought process for knowledge distillation into smaller models.'
+    };
 
+    function render(data) {
+      document.getElementById('updated').textContent = 'Built: ' + (data.updated_at || '--');
+
+      // Goals row
+      const goalsSection = document.getElementById('goalsSection');
+      let goalsHTML = '<div class="goal-row">';
+      const target = 200;
+      for (const [name, track] of Object.entries(data.tracks)) {
+        const pct = Math.round((track.total / target) * 100);
+        goalsHTML += '<div class="goal-item"><span class="goal-label">' + name.toUpperCase() + '</span><span class="goal-val">' + track.total + '/' + target + '</span><span class="goal-pct">' + pct + '%</span></div>';
+      }
+      goalsHTML += '</div>';
+      goalsSection.innerHTML = goalsHTML;
+
+      // Each dataset gets its own card with quality + categories
       const cardsDiv = document.getElementById('datasetCards');
       cardsDiv.innerHTML = '';
       for (const [name, track] of Object.entries(data.tracks)) {
-        const displayName = trackDisplayNames[name] || name;
-        const maxQ = Math.max(...Object.values(track.quality), 1);
-        let qHTML = '';
-        for (const [q, c] of Object.entries(track.quality)) {
-          qHTML += '<div class="q-row"><span class="q-label ' + q + '">' + q + '</span><div class="bar-bg"><div class="bar ' + q + '" style="width:' + (c/maxQ*100) + '%"></div></div><span class="q-count">' + c + '</span></div>';
-        }
-        let catHTML = '';
-        for (const [cat, c] of Object.entries(track.tasks || {})) {
-          catHTML += '<div class="cat-row"><span class="cat-pill">' + cat + '</span><span class="cat-count">' + c + '</span></div>';
-        }
-        const desc = defs[name] || '';
-        cardsDiv.innerHTML += '<div class="track-card">' +
-          '<div class="track-header"><span class="track-name">' + displayName + '</span><span class="track-desc">' + desc + '</span></div>' +
-          '<div class="card"><div class="card-header"><span class="track-total">' + track.total + ' traces</span></div>' +
-          qHTML + '<div style="margin-top:0.5rem;border-top:1px solid #2a2a35;padding-top:0.4rem">' + catHTML + '</div></div></div>';
-      }
+        const card = document.createElement('div');
+        card.className = 'card';
 
-      const catDiv = document.getElementById('catSection');
-      const combined = {};
-      for (const track of Object.values(data.tracks)) {
-        for (const [cat, c] of Object.entries(track.tasks || {})) {
-          combined[cat] = (combined[cat] || 0) + c;
+        // Quality bars
+        let qHTML = '';
+        const maxQ = Math.max(...Object.values(track.quality), 1);
+        for (const [q, c] of Object.entries(track.quality)) {
+          qHTML += '<div class="q-row"><span class="q-label ' + q + '">' + q + '</span><div class="bar-bg"><div class="bar ' + q + '" style="width:' + (c / maxQ * 100) + '%"></div></div><span class="q-count">' + c + '</span></div>';
         }
+
+        // Category breakdown for this track
+        let catHTML = '';
+        const cats = track.tasks || {};
+        const maxCat = Math.max(...Object.values(cats), 1);
+        const sorted = Object.entries(cats).sort((a, b) => b[1] - a[1]);
+        for (const [cat, c] of sorted) {
+          catHTML += '<div class="cat-row"><span class="cat-pill">' + cat + '</span><div class="bar-bg" style="flex:1"><div class="bar good" style="width:' + (c / maxCat * 100) + '%;background:#4fc3f7"></div></div><span class="cat-count">' + c + '</span></div>';
+        }
+
+        card.innerHTML = '<div class="dataset-section">' +
+          '<div class="dataset-header"><span class="dataset-name">' + name + '</span><span class="dataset-count">' + track.total + ' traces</span></div>' +
+          '<div class="dataset-desc">' + (defs[name] || '') + '</div>' +
+        '</div>' +
+        qHTML + '<div style="margin-top:0.75rem;border-top:1px solid #2a2a35;padding-top:0.5rem">' +
+        '<h3 class="cat-section" style="border:none;background:none;padding:0;margin:0;"><span style="font-size:0.7rem;color:#aaa;text-transform:uppercase;letter-spacing:0.1em">Categories</span>' + catHTML + '</h3></div>';
+        cardsDiv.appendChild(card);
       }
-      const sorted = Object.entries(combined).sort((a, b) => b[1] - a[1]);
-      const maxCat = Math.max(...Object.values(combined), 1);
-      let cHTML = '<div class="cat-section"><h3>Task Categories (combined)</h3>';
-      for (const [cat, c] of sorted) {
-        cHTML += '<div class="cat-row"><span class="cat-pill" style="min-width:80px">' + cat + '</span><div class="bar-bg" style="flex:1"><div class="bar good" style="width:' + (c/maxCat*100) + '%;background:#4fc3f7"></div></div><span class="cat-count">' + c + '</span></div>';
-      }
-      cHTML += '</div>';
-      catDiv.innerHTML = cHTML;
     }
 
-    load();
+    loadStats();
   </script>
 </body>
 </html>
