@@ -1,208 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trace Dataset Monitor — Mom and Pop Labs</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-               background: #0f0f16; color: #e0e0e0; padding: 1rem; min-height: 100vh; }
-        h1 { font-size: 1.3rem; margin-bottom: 0.3rem; color: #00e676; }
-        .subtitle { color: #888; margin-bottom: 1.5rem; font-size: 0.8rem; }
-
-        /* Big number */
-        .big-count { font-size: 3.5rem; font-weight: 800; color: #00e676; margin: 0.5rem 0; line-height: 1; }
-        .big-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Cards */
-        .card { background: #1a1a24; border-radius: 10px; padding: 1rem; margin-bottom: 1rem;
-                border: 1px solid #2a2a35; }
-        .card h3 { color: #ccc; margin-bottom: 0.75rem; font-size: 0.9rem; }
-
-        /* Grid */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-
-        /* Quality bars */
-        .quality-row { display: flex; align-items: center; margin: 0.4rem 0; gap: 0.5rem; }
-        .quality-label { width: 60px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .quality-label.great { color: #00e676; }
-        .quality-label.good { color: #4fc3f7; }
-        .quality-label.mediocre { color: #ffb74d; }
-        .quality-label.poor { color: #ef5350; }
-        .bar-container { flex: 1; height: 6px; background: #252530; border-radius: 3px; overflow: hidden; }
-        .bar { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
-        .bar.great { background: #00e676; }
-        .bar.good { background: #4fc3f7; }
-        .bar.mediocre { background: #ffb74d; }
-        .bar.poor { background: #ef5350; }
-        .quality-count { width: 30px; text-align: right; font-size: 0.75rem; font-weight: 600; }
-
-        /* Category pills */
-        .cat-row { display: flex; align-items: center; gap: 0.5rem; margin: 0.3rem 0; }
-        .cat-pill { padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.65rem;
-                   background: #2a2a35; color: #aaa; min-width: 50px; text-align: center; }
-        .cat-count { font-size: 0.7rem; color: #999; }
-
-        /* Goal badge */
-        .goal-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.7rem;
-                     font-weight: 600; }
-        .goal-badge.on-track { background: rgba(0,230,118,0.15); color: #00e676; }
-        .goal-badge.behind { background: rgba(255,183,77,0.15); color: #ffb74d; }
-        .goal-badge.far { background: rgba(239,83,80,0.15); color: #ef5350; }
-
-        /* Track header */
-        .track-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
-        .track-header h3 { margin-bottom: 0; }
-        .track-total { font-size: 1.5rem; font-weight: 700; color: #00e676; }
-
-        .last-updated { color: #666; font-size: 0.65rem; margin-left: 0.5rem; }
-        .refresh-note { color: #555; font-size: 0.6rem; margin-top: 0.5rem; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trace Dataset Monitor</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+           background: #0f0f16; color: #e0e0e0; padding: 1rem; min-height: 100vh; }
+    .header { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 1rem; border-bottom: 1px solid #2a2a35; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem; }
+    h1 { font-size: 1.1rem; color: #00e676; }
+    .header-right { display: flex; gap: 1rem; align-items: center; }
+    .header-right a { color: #4fc3f7; font-size: 0.75rem; text-decoration: none; }
+    .header-right span { color: #666; font-size: 0.65rem; }
+    .big-stat { text-align: center; margin-bottom: 2rem; }
+    .big-num { font-size: 3.5rem; font-weight: 800; color: #00e676; line-height: 1; }
+    .big-label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+    .goal-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.65rem; font-weight: 600; margin-top: 0.5rem; }
+    .goal-badge.on-track { background: rgba(0,230,118,0.15); color: #00e676; }
+    .goal-badge.behind { background: rgba(255,183,77,0.15); color: #ffb74d; }
+    .goal-badge.far { background: rgba(239,83,80,0.15); color: #ef5350; }
+    .tooltip { position: relative; cursor: help; border-bottom: 1px dotted #666; }
+    .tooltip .tip-text { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      background: #1e1e2a; color: #ccc; font-size: 0.7rem; font-weight: 400; line-height: 1.4;
+      padding: 0.5rem 0.7rem; border-radius: 6px; width: 260px; text-align: left;
+      border: 1px solid #333; letter-spacing: 0; text-transform: none; z-index: 10; }
+    .tooltip:hover .tip-text { display: block; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    .card { background: #1a1a24; border-radius: 10px; padding: 1rem; border: 1px solid #2a2a35; }
+    .card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem; }
+    .track-name { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; }
+    .track-total { font-size: 1.5rem; font-weight: 700; color: #00e676; }
+    .q-row { display: flex; align-items: center; margin: 0.3rem 0; gap: 0.4rem; }
+    .q-label { width: 55px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.3px; }
+    .q-label.great { color: #00e676; }
+    .q-label.good { color: #4fc3f7; }
+    .q-label.mediocre { color: #ffb74d; }
+    .q-label.poor { color: #ef5350; }
+    .bar-bg { flex: 1; height: 5px; background: #252530; border-radius: 3px; overflow: hidden; }
+    .bar { height: 100%; border-radius: 3px; }
+    .bar.great { background: #00e676; }
+    .bar.good { background: #4fc3f7; }
+    .bar.mediocre { background: #ffb74d; }
+    .bar.poor { background: #ef5350; }
+    .q-count { width: 25px; text-align: right; font-size: 0.7rem; font-weight: 600; color: #999; }
+    .cat-section { background: #1a1a24; border-radius: 10px; padding: 1rem; border: 1px solid #2a2a35; margin-bottom: 1.5rem; }
+    .cat-section h3 { font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+    .cat-row { display: flex; align-items: center; gap: 0.4rem; margin: 0.3rem 0; }
+    .cat-pill { padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.65rem; background: #2a2a35; color: #aaa; min-width: 50px; text-align: center; }
+    .cat-count { font-size: 0.7rem; color: #999; }
+    .refresh-note { color: #555; font-size: 0.65rem; text-align: center; padding-top: 1rem; border-top: 1px solid #2a2a35; }
+    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .header { flex-direction: column; } }
+  </style>
 </head>
 <body>
-    <h1>🧭 Trace Dataset Monitor <span class="last-updated" id="updated"></span></h1>
-    <p class="subtitle">Mom and Pop Labs — Agentic Reasoning Traces for Fine-Tuning</p>
-
-    <!-- Big Number -->
-    <div class="card" style="text-align: center;">
-        <div class="big-label">Total Traces (All Tracks)</div>
-        <div class="big-count" id="bigCount">—</div>
-        <div class="big-label" id="sessionLabel">—</div>
-        <div id="goalBadge" class="goal-badge on-track">Loading...</div>
+  <div class="header">
+    <h1><span class="tooltip">Trace Dataset Monitor<span class="tip-text">Counts across all tracks (SFT + Agentic + Distill). Each trace is one independent training sample captured from a real agent session.</span></span></h1>
+    <div class="header-right">
+      <a href="https://chuck1823.github.io/mom-and-pop-site/" target="_blank">Mom & Pop</a>
+      <a href="https://chuck1823.github.io/famcloud-site/" target="_blank">FamCloud</a>
+      <span id="updated"></span>
     </div>
+  </div>
 
-    <!-- Tracks Grid -->
-    <div class="grid" id="tracksGrid"></div>
+  <div class="big-stat">
+    <div class="big-num" id="bigCount">--</div>
+    <div class="big-label" id="sessionLabel">-- sessions processed</div>
+    <div id="goalBadge" class="goal-badge on-track">Loading...</div>
+  </div>
 
-    <!-- Combined Category Breakdown -->
-    <div class="card">
-        <h3>📊 Task Categories (Across All Tracks)</h3>
-        <div id="catBreakdown"></div>
-    </div>
+  <div class="grid" id="tracksGrid"></div>
 
-    <!-- Links -->
-    <div class="card">
-        <h3>🔗 Links</h3>
-        <div style="font-size: 0.8rem; line-height: 1.8;">
-            <div>🏠 <a href="https://chuck1823.github.io/mom-and-pop-site/" target="_blank" style="color: #4fc3f7;">Mom & Pop Landing Page</a></div>
-            <div>🏡 <a href="https://chuck1823.github.io/famcloud-site/" target="_blank" style="color: #4fc3f7;">FamCloud Landing Page</a></div>
-        </div>
-    </div>
+  <div class="cat-section">
+    <h3><span class="tooltip">Task Categories (combined)<span class="tip-text">Task types inferred from tool usage patterns and conversation content. Aggregated across all three tracks.</span></span></h3>
+    <div id="catBreakdown"></div>
+  </div>
 
-    <p class="refresh-note">Auto-refreshes every 60 seconds. Rebuild stats with: python3 experiment/scripts/export-all.py</p>
+  <div class="refresh-note">Rebuild stats: python3 experiment/scripts/export-all.py, then push updated stats.json</div>
 
-    <script>
-        async function loadStats() {
-            try {
-                const res = await fetch('stats.json');
-                const data = await res.json();
-                render(data);
-            } catch (e) {
-                console.error('Failed to load stats:', e);
-                document.getElementById('updated').textContent = '(offline)';
-            }
+  <script>
+    async function loadStats() {
+      try {
+        const res = await fetch('stats.json');
+        const data = await res.json();
+        render(data);
+      } catch(e) { console.error(e); }
+    }
+
+    function render(data) {
+      document.getElementById('updated').textContent = data.updated_at || '';
+      document.getElementById('bigCount').textContent = data.total_traces.toLocaleString();
+      document.getElementById('sessionLabel').textContent = data.total_sessions + ' sessions processed';
+
+      const target = 200;
+      const count = data.total_traces;
+      const pct = Math.min(100, Math.round((count / target) * 100));
+      const badge = document.getElementById('goalBadge');
+      if (pct >= 100) { badge.className = 'goal-badge on-track'; badge.textContent = target + '-trace goal reached'; }
+      else if (pct >= 50) { badge.className = 'goal-badge on-track'; badge.textContent = pct + '% to goal (' + count + '/' + target + ')'; }
+      else if (pct >= 25) { badge.className = 'goal-badge behind'; badge.textContent = pct + '% to goal (' + count + '/' + target + ')'; }
+      else { badge.className = 'goal-badge far'; badge.textContent = pct + '% to goal (' + count + '/' + target + ')'; }
+
+      const defs = {
+        sft: 'SFT (Supervised Fine-Tuning): Plain text only — system prompt, user messages, assistant responses. Compatible with every fine-tuning API (OpenAI, Together, Fireworks, Unsloth, LLaMA-Factory, Pioneer).',
+        agentic: 'Agentic (Tool-Call): Includes tool_calls and tool_result messages. Traces show the agent calling tools, getting results, and responding. Compatible with OpenAI, Together, Fireworks, vLLM.',
+        distill: 'Distill (SFT + Reasoning): Like SFT but each assistant message includes both the response (content) and the internal reasoning/thinking. Captures the full thought process for knowledge distillation into smaller models.'
+      };
+
+      const grid = document.getElementById('tracksGrid');
+      grid.innerHTML = '';
+      for (const [name, track] of Object.entries(data.tracks)) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        let qHTML = '';
+        const maxQ = Math.max(...Object.values(track.quality), 1);
+        for (const [q, c] of Object.entries(track.quality)) {
+          qHTML += '<div class="q-row"><span class="q-label ' + q + '">' + q + '</span><div class="bar-bg"><div class="bar ' + q + '" style="width:' + (c/maxQ*100) + '%"></div></div><span class="q-count">' + c + '</span></div>';
         }
-
-        function render(data) {
-            document.getElementById('updated').textContent = `(Updated: ${data.updated_at})`;
-            document.getElementById('bigCount').textContent = data.total_traces.toLocaleString();
-            document.getElementById('sessionLabel').textContent = `${data.total_sessions} sessions processed`;
-
-            // Goal badge
-            const target = 200;
-            const count = data.total_traces;
-            const pct = Math.min(100, Math.round((count / target) * 100));
-            const badge = document.getElementById('goalBadge');
-
-            if (pct >= 100) {
-                badge.className = 'goal-badge on-track';
-                badge.textContent = `✅ ${target}-trace goal reached!`;
-            } else if (pct >= 50) {
-                badge.className = 'goal-badge on-track';
-                badge.textContent = `🎯 ${pct}% to goal (${count}/${target})`;
-            } else if (pct >= 25) {
-                badge.className = 'goal-badge behind';
-                badge.textContent = `📈 ${pct}% to goal (${count}/${target})`;
-            } else {
-                badge.className = 'goal-badge far';
-                badge.textContent = `🌱 ${pct}% to goal (${count}/${target})`;
-            }
-
-            // Track cards
-            const grid = document.getElementById('tracksGrid');
-            grid.innerHTML = '';
-
-            // Combine categories across all tracks
-            const combinedCats = {};
-            for (const [name, track] of Object.entries(data.tracks)) {
-                for (const [cat, c] of Object.entries(track.tasks || {})) {
-                    combinedCats[cat] = (combinedCats[cat] || 0) + c;
-                }
-            }
-
-            for (const [name, track] of Object.entries(data.tracks)) {
-                const card = document.createElement('div');
-                card.className = 'card';
-
-                let qualityHTML = '';
-                const maxCount = Math.max(...Object.values(track.quality), 1);
-                for (const [q, c] of Object.entries(track.quality)) {
-                    const pct = (c / maxCount) * 100;
-                    qualityHTML += `
-                        <div class="quality-row">
-                            <span class="quality-label ${q}">${q}</span>
-                            <div class="bar-container">
-                                <div class="bar ${q}" style="width: ${pct}%"></div>
-                            </div>
-                            <span class="quality-count">${c}</span>
-                        </div>`;
-                }
-
-                let catHTML = '';
-                for (const [cat, c] of Object.entries(track.tasks || {})) {
-                    catHTML += `
-                        <div class="cat-row">
-                            <span class="cat-pill">${cat}</span>
-                            <span class="cat-count">${c} traces</span>
-                        </div>`;
-                }
-
-                card.innerHTML = `
-                    <div class="track-header">
-                        <h3>${name.toUpperCase()}</h3>
-                        <span class="track-total">${track.total}</span>
-                    </div>
-                    ${qualityHTML}
-                    <div style="margin-top: 0.75rem; border-top: 1px solid #2a2a35; padding-top: 0.5rem;">
-                        <h3 style="font-size: 0.75rem;">Categories</h3>
-                        ${catHTML}
-                    </div>
-                `;
-                grid.appendChild(card);
-            }
-
-            // Combined category breakdown
-            const catDiv = document.getElementById('catBreakdown');
-            const sortedCats = Object.entries(combinedCats).sort((a, b) => b[1] - a[1]);
-            const maxCat = Math.max(...Object.values(combinedCats), 1);
-            let catBreakdownHTML = '';
-            for (const [cat, c] of sortedCats) {
-                const pct = (c / maxCat) * 100;
-                catBreakdownHTML += `
-                    <div class="cat-row" style="margin: 0.5rem 0;">
-                        <span class="cat-pill" style="min-width: 80px;">${cat}</span>
-                        <div class="bar-container" style="flex: 1;">
-                            <div class="bar great" style="width: ${pct}%; background: #4fc3f7;"></div>
-                        </div>
-                        <span class="cat-count">${c}</span>
-                    </div>`;
-            }
-            catDiv.innerHTML = catBreakdownHTML;
+        let catHTML = '';
+        for (const [cat, c] of Object.entries(track.tasks || {})) {
+          catHTML += '<div class="cat-row"><span class="cat-pill">' + cat + '</span><span class="cat-count">' + c + '</span></div>';
         }
+        card.innerHTML = '<div class="card-header"><span class="track-name tooltip">' + name + '<span class="tip-text">' + (defs[name] || '') + '</span></span><span class="track-total">' + track.total + '</span></div>' + qHTML + '<div style="margin-top:0.5rem;border-top:1px solid #2a2a35;padding-top:0.4rem">' + catHTML + '</div>';
+        grid.appendChild(card);
+      }
 
-        loadStats();
-        setInterval(loadStats, 60000);
-    </script>
+      const combinedCats = {};
+      for (const track of Object.values(data.tracks)) {
+        for (const [cat, c] of Object.entries(track.tasks || {})) {
+          combinedCats[cat] = (combinedCats[cat] || 0) + c;
+        }
+      }
+      const catDiv = document.getElementById('catBreakdown');
+      const sorted = Object.entries(combinedCats).sort((a, b) => b[1] - a[1]);
+      const maxCat = Math.max(...Object.values(combinedCats), 1);
+      let cHTML = '';
+      for (const [cat, c] of sorted) {
+        cHTML += '<div class="cat-row"><span class="cat-pill" style="min-width:80px">' + cat + '</span><div class="bar-bg" style="flex:1"><div class="bar good" style="width:' + (c/maxCat*100) + '%;background:#4fc3f7"></div></div><span class="cat-count">' + c + '</span></div>';
+      }
+      catDiv.innerHTML = cHTML;
+    }
+
+    loadStats();
+  </script>
 </body>
 </html>
