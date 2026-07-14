@@ -14,17 +14,24 @@
     .header-right a { color: #4fc3f7; font-size: 0.7rem; text-decoration: none; }
     .header-right span { color: #666; font-size: 0.6rem; }
 
-    /* Summary card */
-    .summary-card { background: linear-gradient(135deg, rgba(0,230,118,0.05), rgba(79,195,247,0.05)); border: 1px solid rgba(0,230,118,0.15); border-radius: 10px; padding: 1.2rem; margin-bottom: 1.5rem; text-align: center; }
-    .summary-num { font-size: 2.5rem; font-weight: 800; color: #fff; letter-spacing: -1px; }
-    .summary-sub { color: #888; font-size: 0.75rem; margin-top: 4px; }
-    .summary-label { font-size: 0.85rem; color: #4fc3f7; font-weight: 600; }
-    .summary-goal { color: #666; font-size: 0.7rem; margin-top: 2px; }
+    /* Summary card — split layout */
+    .summary-card { display: flex; gap: 2rem; align-items: stretch; background: linear-gradient(135deg, rgba(0,230,118,0.05), rgba(79,195,247,0.05)); border: 1px solid rgba(0,230,118,0.15); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .summary-left { display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 130px; text-align: center; }
+    .summary-num { font-size: 3.5rem; font-weight: 800; color: #fff; letter-spacing: -2px; line-height: 1; }
+    .summary-label { font-size: 0.85rem; color: #4fc3f7; font-weight: 600; margin-top: 6px; text-transform: capitalize; }
+    .summary-divider { width: 1px; background: rgba(255,255,255,0.08); }
+    .summary-right { flex: 1; }
+    .sr-row { display: flex; align-items: center; margin-bottom: 8px; gap: 0.5rem; }
+    .sr-name { font-size: 0.75rem; font-weight: 600; color: #ccc; min-width: 90px; text-transform: capitalize; }
+    .sr-bar-bg { flex: 1; height: 10px; background: #1a1a28; border-radius: 5px; overflow: hidden; }
+    .sr-bar { height: 100%; border-radius: 5px; transition: width 0.3s; }
+    .sr-ct { font-size: 0.7rem; color: #888; min-width: 55px; text-align: right; }
+    .sr-ct .goal { color: #555; }
+    .sr-empty { color: #555; font-size: 0.75rem; font-style: italic; }
 
     .t-card { background: #161620; border-radius: 8px; margin-bottom: 1.2rem; border: 1px solid #2a2a35; overflow: hidden; }
     .t-label { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; padding: 0.5rem 0.7rem 0.2rem; font-weight: 600; background: rgba(255,255,255,0.02); }
     .def-text { font-size: 0.52rem; color: #666; padding: 0 0.7rem 0.4rem; line-height: 1.4; word-break: break-word; }
-
     .q-row { display: flex; align-items: center; margin: 0.18rem 0.7rem; gap: 0.3rem; }
     .q-lbl { width: 42px; font-size: 0.52rem; text-transform: uppercase; }
     .q-lbl.great { color: #00e676; }
@@ -38,29 +45,12 @@
     .bar.mediocre { background: #ffb74d; }
     .bar.poor { background: #ef5350; }
     .q-ct { width: 18px; text-align: right; font-size: 0.5rem; color: #888; }
-
-    .l-title { font-size: 0.52rem; text-transform: uppercase; letter-spacing: 0.1em; color: #555; margin: 0.4rem 0.7rem 0.2rem; font-weight: 600; }
-    .l-row { display: flex; align-items: center; margin: 0.12rem 0.7rem; gap: 0.3rem; }
-    .l-name { width: 100px; font-size: 0.52rem; color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .l-bar-bg { flex: 1; height: 4px; background: #222230; border-radius: 2px; overflow: hidden; }
-    .l-bar { height: 100%; border-radius: 2px; background: #a78bfa; }
-    .l-bar.unclassified { background: #555; }
-    .l-bar.devops { background: #4fc3f7; }
-    .l-bar.research { background: #9c27b0; }
-    .l-bar.coding { background: #4caf50; }
-    .l-bar.workflow_automation { background: #ff9800; }
-    .l-ct { width: 40px; text-align: right; font-size: 0.5rem; color: #999; }
-    .l-ct .goal { color: #666; }
-
     .refresh-note { color: #555; font-size: 0.6rem; text-align: center; padding-top: 1rem; border-top: 1px solid #2a2a35; }
 
-    /* Track label summary row */
-    .track-label-summary { display: flex; align-items: center; padding: 0.3rem 0.7rem 0.4rem; gap: 0.4rem; }
-    .tls-label { font-size: 0.65rem; font-weight: 700; color: #fff; min-width: 90px; }
-    .tls-bar-bg { flex: 1; height: 8px; background: #222230; border-radius: 4px; overflow: hidden; }
-    .tls-bar { height: 100%; border-radius: 4px; transition: width 0.3s; }
-    .tls-ct { font-size: 0.6rem; color: #aaa; min-width: 60px; text-align: right; }
-    .tls-ct .goal { color: #666; }
+    @media (max-width: 520px) {
+      .summary-card { flex-direction: column; gap: 1rem; padding: 1.2rem; }
+      .summary-divider { width: auto; height: 1px; }
+    }
   </style>
 </head>
 <body>
@@ -72,15 +62,16 @@
     </div>
   </div>
 
-  <!-- Summary card -->
   <div class="summary-card" id="summary-card">
-    <div class="summary-num" id="summary-num">&mdash;</div>
-    <div class="summary-label" id="summary-label"></div>
-    <div class="summary-sub" id="summary-sub">Loading...</div>
+    <div class="summary-left">
+      <div class="summary-num" id="summary-num">&mdash;</div>
+      <div class="summary-label" id="summary-label"></div>
+    </div>
+    <div class="summary-divider"></div>
+    <div class="summary-right" id="summary-right"></div>
   </div>
 
   <div id="dashboard"></div>
-
   <div class="refresh-note">Rebuild stats: python3 experiment/trace-dashboard/app.py → push stats.json</div>
 
   <script>
@@ -89,67 +80,80 @@
       catch(e) { document.body.innerHTML = '<p style="color:#ef5350;padding:1rem">Failed to load stats.json</p>'; }
     }
 
-    const barColors = {
+    const labelColors = {
       'devops':'#4fc3f7','research':'#9c27b0','coding':'#4caf50',
-      'workflow_automation':'#ff9800','general_assistant':'#888888','unclassified':'#555'
+      'workflow_automation':'#ff9800','general_assistant':'#888888',
+      'unclassified':'#555','testing':'#e91e63','documentation':'#00bcd4',
+      'nail_salon':'#ff9800','barber_shop':'#795548','restaurant':'#f44336',
+      'booking_appointment':'#4caf50','inventory_management':'#ff5722',
+      'customer_qa':'#2196f3'
     };
 
     function render(data) {
       document.getElementById('updated').textContent = data.updated_at || '';
-      const el = document.getElementById('dashboard');
-      el.innerHTML = '';
 
-      // Calculate combined labels across all tracks for summary
+      // Combine labels across all tracks (count only once per trace per label)
       const combinedLabels = {};
-      let totalCount = 0;
       for (const trackName of ['sft', 'agentic', 'distill']) {
         const t = data.tracks[trackName];
         if (t && t.label_counts) {
           for (const [lab, ct] of Object.entries(t.label_counts)) {
+            if (lab.startsWith('_')) continue;
             combinedLabels[lab] = (combinedLabels[lab] || 0) + ct;
           }
-          totalCount += t.label_counts._total || t.total || 0;
         }
       }
 
-      // Find leading label
-      let leadingLabel = 'unclassified', leadingCount = 0;
+      // Find leading label (highest count)
+      let leadingLabel = 'none', leadingCount = 0;
       for (const [lab, ct] of Object.entries(combinedLabels)) {
-        if (lab.startsWith('_') || lab === '_total') continue;
         if (ct > leadingCount) { leadingCount = ct; leadingLabel = lab; }
       }
 
-      const summaryNum = document.getElementById('summary-num');
-      const summaryLabel = document.getElementById('summary-label');
-      const summarySub = document.getElementById('summary-sub');
+      // Left: big number + label
+      document.getElementById('summary-num').textContent = leadingCount || '—';
+      document.getElementById('summary-label').textContent = leadingLabel.replace(/_/g, ' ');
 
-      if (summaryNum) summaryNum.textContent = leadingCount;
-      if (summaryLabel) summaryLabel.textContent = leadingLabel.replace(/_/g, ' ');
-      if (summarySub) summarySub.textContent = leadingCount + ' / 200 traces (combined across datasets)';
+      // Right: per-label breakdown with progress bars
+      const right = document.getElementById('summary-right');
+      const labels = Object.entries(combinedLabels).sort((a, b) => b[1] - a[1]);
+      if (labels.length === 0) {
+        right.innerHTML = '<div class="sr-empty">No labels yet</div>';
+      } else {
+        let html = '';
+        for (const [lab, ct] of labels) {
+          const pct = Math.min(ct / 200 * 100, 100);
+          const color = labelColors[lab] || '#a78bfa';
+          html += '<div class="sr-row">';
+          html += '<span class="sr-name">' + lab.replace(/_/g, ' ') + '</span>';
+          html += '<div class="sr-bar-bg"><div class="sr-bar" style="width:' + pct + '%;background:' + color + '"></div></div>';
+          html += '<span class="sr-ct">' + ct + ' <span class="goal">/ 200</span></span>';
+          html += '</div>';
+        }
+        right.innerHTML = html;
+      }
 
+      // Track cards
+      const el = document.getElementById('dashboard');
+      el.innerHTML = '';
       for (const trackName of ['sft', 'agentic', 'distill']) {
         const t = data.tracks[trackName];
         if (!t || t.total === 0) continue;
 
         let html = '<div class="t-card">';
         html += '<div class="t-label">' + trackName.toUpperCase() + ' — ' + t.total + ' traces</div>';
-        html += '<div class="def-text">' + (data.defs[trackName]) + '</div>';
-
-        // Quality bars
+        html += '<div class="def-text">' + (data.defs[trackName] || '') + '</div>';
         const maxQ = Math.max(...Object.values(t.quality), 1);
         for (const [q, c] of Object.entries(t.quality)) {
           if (c === 0) continue;
-          html += '<div class="q-row"><span class="q-lbl ' + q + '">' + q + '</span><div class="bar-bg"><div class="bar ' + q + '" style="width:' + (c/maxQ*100) + '%"></div></div><span class="q-ct">' + c + '</span></div>';
+          html += '<div class="q-row"><span class="q-lbl ' + q + '">' + q + '</span><div class="bar-bg"><div class="bar ' + q + '" style="width:' + (c / maxQ * 100) + '%"></div></div><span class="q-ct">' + c + '</span></div>';
         }
-
-        // Labels with goal tracking
         if (t.label_counts && Object.keys(t.label_counts).length > 1) {
-          html += '<div class="l-title">Labels</div>';
-          const summary = Object.entries(t.label_counts).filter(([l]) => !l.startsWith('_'));
+          const summary = Object.entries(t.label_counts).filter(([l]) => !l.startsWith('_')).sort((a, b) => b[1] - a[1]);
           const maxL = Math.max(...summary.map(([l, c]) => c), 1);
-          for (const [lab, ct] of summary.sort((a, b) => b[1] - a[1])) {
-            const colorClass = lab;
-            html += '<div class="l-row"><span class="l-name">' + lab.replace(/_/g, ' ') + '</span><div class="l-bar-bg"><div class="l-bar ' + colorClass + '" style="width:' + (ct/maxL*100) + '%"></div></div><span class="l-ct">' + ct + ' <span class="goal">/ 200</span></span></div>';
+          for (const [lab, ct] of summary) {
+            const color = labelColors[lab] || '#a78bfa';
+            html += '<div class="sr-row" style="margin:0.15rem 0.7rem"><span class="sr-name">' + lab.replace(/_/g, ' ') + '</span><div class="sr-bar-bg" style="height:6px"><div class="sr-bar" style="width:' + (ct / maxL * 100) + '%;background:' + color + '"></div></div><span class="sr-ct">' + ct + ' <span class="goal">/ 200</span></span></div>';
           }
         }
         html += '</div>';
