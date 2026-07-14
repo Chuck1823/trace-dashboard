@@ -75,9 +75,8 @@
   <!-- Summary card -->
   <div class="summary-card" id="summary-card">
     <div class="summary-num" id="summary-num">&mdash;</div>
-    <div class="summary-label" id="summary-label">Loading...</div>
-    <div class="summary-goal">Target: 200 unique labeled traces</div>
-    <div class="summary-sub" id="summary-sub"></div>
+    <div class="summary-label" id="summary-label"></div>
+    <div class="summary-sub" id="summary-sub">Loading...</div>
   </div>
 
   <div id="dashboard"></div>
@@ -120,10 +119,13 @@
         if (ct > leadingCount) { leadingCount = ct; leadingLabel = lab; }
       }
 
-      document.getElementById('summary-num').textContent = totalCount;
-      document.getElementById('summary-label').textContent = leadingLabel.replace(/_/g, ' ') + ' (' + leadingCount + ')';
-      const pct = Math.round(leadingCount / 200 * 100);
-      document.getElementById('summary-sub').textContent = pct + '% of target';
+      const summaryNum = document.getElementById('summary-num');
+      const summaryLabel = document.getElementById('summary-label');
+      const summarySub = document.getElementById('summary-sub');
+
+      if (summaryNum) summaryNum.textContent = leadingCount;
+      if (summaryLabel) summaryLabel.textContent = leadingLabel.replace(/_/g, ' ');
+      if (summarySub) summarySub.textContent = leadingCount + ' / 200 traces (combined across datasets)';
 
       for (const trackName of ['sft', 'agentic', 'distill']) {
         const t = data.tracks[trackName];
