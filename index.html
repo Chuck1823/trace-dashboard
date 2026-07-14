@@ -104,9 +104,19 @@
       el.innerHTML = '';
       
       // Summary: unique traces
-      document.getElementById('summary-num').textContent = data.unique_total;
-      const pct = Math.round(data.unique_total / 200 * 100);
+      const ut = data.unique_total || 0;
+      document.getElementById('summary-num').textContent = ut;
+      const pct = Math.round(ut / 200 * 100);
       document.getElementById('summary-sub').textContent = pct + '% of target';
+      
+      // Summary label from unique_labels
+      const ul = data.unique_labels || {};
+      const entries = Object.entries(ul).filter(([l]) => !l.startsWith('_'));
+      if (entries.length > 0) {
+        entries.sort((a, b) => b[1] - a[1]);
+        const leading = entries[0];
+        document.getElementById('summary-label').textContent = leading[0].replace(/_/g, ' ') + ' (' + leading[1] + ')';
+      }
       
       // Label progress bars (unique labels only)
       const lp = document.getElementById('label-progress');
