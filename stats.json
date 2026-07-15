@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-07-14 14:02 UTC",
-  "unique_total": 47,
+  "updated_at": "2026-07-15 14:00 UTC",
+  "unique_total": 66,
   "unique_labels": {
-    "devops": 47
+    "unclassified": 66
   },
   "tracks": {
     "sft": {
-      "total": 47,
+      "total": 66,
       "quality": {
-        "great": 16,
-        "good": 20,
-        "mediocre": 9,
+        "great": 27,
+        "good": 26,
+        "mediocre": 11,
         "poor": 2
       },
       "label_counts": {
-        "_total": 47,
-        "devops": 47
+        "_total": 66,
+        "unclassified": 66
       }
     },
     "agentic": {
-      "total": 47,
+      "total": 66,
       "quality": {
-        "great": 16,
-        "good": 20,
-        "mediocre": 9,
+        "great": 27,
+        "good": 26,
+        "mediocre": 11,
         "poor": 2
       },
       "label_counts": {
-        "_total": 47,
-        "devops": 47
+        "_total": 66,
+        "unclassified": 66
       }
     },
     "distill": {
-      "total": 47,
+      "total": 66,
       "quality": {
-        "great": 16,
-        "good": 20,
-        "mediocre": 9,
+        "great": 27,
+        "good": 26,
+        "mediocre": 11,
         "poor": 2
       },
       "label_counts": {
-        "_total": 47,
-        "devops": 47
+        "_total": 66,
+        "unclassified": 66
       }
     }
   },
