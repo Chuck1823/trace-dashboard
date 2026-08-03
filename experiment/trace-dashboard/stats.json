@@ -1,47 +1,61 @@
 {
-  "updated_at": "2026-07-14 14:02 UTC",
-  "unique_total": 47,
+  "updated_at": "2026-08-03 22:52 UTC",
+  "unique_total": 84,
   "unique_labels": {
-    "devops": 47
+    "devops": 67,
+    "general_assistant": 8,
+    "research": 5,
+    "data_entry_reporting": 3,
+    "booking_appointment": 1
   },
   "tracks": {
     "sft": {
-      "total": 47,
+      "total": 84,
       "quality": {
-        "great": 16,
-        "good": 20,
-        "mediocre": 9,
-        "poor": 2
+        "great": 36,
+        "good": 32,
+        "mediocre": 13,
+        "poor": 3
       },
       "label_counts": {
-        "_total": 47,
-        "devops": 47
+        "_total": 84,
+        "devops": 67,
+        "general_assistant": 8,
+        "research": 5,
+        "data_entry_reporting": 3,
+        "booking_appointment": 1
       }
     },
     "agentic": {
-      "total": 47,
+      "total": 84,
       "quality": {
-        "great": 16,
-        "good": 20,
-        "mediocre": 9,
-        "poor": 2
+        "great": 36,
+        "good": 32,
+        "mediocre": 13,
+        "poor": 3
       },
       "label_counts": {
-        "_total": 47,
-        "devops": 47
+        "_total": 84,
+        "data_entry_reporting": 1,
+        "devops": 60,
+        "research": 12,
+        "general_assistant": 11
       }
     },
     "distill": {
-      "total": 47,
+      "total": 84,
       "quality": {
-        "great": 16,
-        "good": 20,
-        "mediocre": 9,
-        "poor": 2
+        "great": 36,
+        "good": 32,
+        "mediocre": 13,
+        "poor": 3
       },
       "label_counts": {
-        "_total": 47,
-        "devops": 47
+        "_total": 84,
+        "data_entry_reporting": 1,
+        "devops": 62,
+        "general_assistant": 11,
+        "research": 10
       }
     }
   },
