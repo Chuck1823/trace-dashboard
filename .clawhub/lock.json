@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "skills": {
+    "self-improving-agent": {
+      "version": "4.0.1",
+      "installedAt": 1784297028162,
+      "registry": "https://clawhub.ai",
+      "ownerHandle": "pskoett",
+      "artifact": {
+        "kind": "archive",
+        "sha256": "441c81d7fde117ec7f77cbbefbe91c6514c053525a2f62f8796b73c3634f9907",
+        "integrity": "sha256-RByB1/3hF+x/d8u+++kcZRTAU1JaL2L4eWtzw2NPmQc="
+      },
+      "skillFile": {
+        "path": "SKILL.md",
+        "sha256": "d27e7def38c5f31a17ad06846b92c76f58da4de21d6cfb25e0dfa75b8594bac9"
+      },
+      "verification": {
+        "schema": "clawhub.skill.verify.v1",
+        "ok": true,
+        "decision": "pass",
+        "reasons": [],
+        "card": {
+          "available": true,
+          "path": "skill-card.md",
+          "url": "https://wry-manatee-359.convex.site/api/v1/skills/self-improving-agent/card?ownerHandle=pskoett&version=4.0.1",
+          "sha256": "7a1900de438824e74c192688717d51d80db68bd3c5834ee0805950437f961ab9",
+          "size": 2374,
+          "contentType": "text/markdown; charset=utf-8"
+        },
+        "artifact": {
+          "sourceFingerprint": "4ead3aab2b11589f11799be4a2259e81638cec2edb2834b4fb33eabae48d352a",
+          "bundleFingerprints": [
+            "a1b20ebc9005600224d92410a0325aeacd895e28476587d6846d94ca22503925",
+            "17935760848c8827420e725ee46c9b87f95fe42a7a3044062df61d580bea3279",
+            "79fe4bd4dec0ff8f2234dbe2eb85e5b0a2ad578efb78a81a29ab947a1b8de544"
+          ],
+          "files": [
+            {
+              "path": "CHANGELOG.md",
+              "size": 6416,
+              "sha256": "1b171f395578721311a7b90b262941a53c7d5291523d161b43439d17a8df197a",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "references/uninstall.md",
+              "size": 1891,
+              "sha256": "c569a88473ac0187e0d9dde1686eb24efe4666d84af2a149b5fb8e99b7a99828",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "references/examples.md",
+              "size": 8287,
+              "sha256": "ba521451abf0f1cc774b061894c94689390dafa3ce3905f63d5fa6f860a5e3b8",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "references/openclaw-integration.md",
+              "size": 9602,
+              "sha256": "a2792cf5addb7a05ba72416ecf7ddd19e8d5f5ee5811e6d68030402ac963bdfb",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "hooks/openclaw/handler.test.js",
+              "size": 8921,
+              "sha256": "3047f4239bc3eadcb8f12cc3515f946e86b16cb482de82ae900e5b994c403e69",
+              "contentType": "text/javascript"
+            },
+            {
+              "path": "hooks/openclaw/handler.js",
+              "size": 13741,
+              "sha256": "b94261dce2de54ba6bd1d6aca48d9ef11236cbe7396bd37354daa218e0ceecf3",
+              "contentType": "text/javascript"
+            },
+            {
+              "path": "hooks/openclaw/HOOK.md",
+              "size": 2465,
+              "sha256": "2ae0820cc5cad75d9ecce8cfc6a9c4c8baafcb4c96f820bf85f3a0e7ff2364f5",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "hooks/openclaw/handler.ts",
+              "size": 14615,
+              "sha256": "35f8ccd18d6979b4bacfbf1841f4f0965193ed694e46fa6cee67994f3ac838ba",
+              "contentType": "application/typescript"
+            },
+            {
+              "path": "scripts/extract-skill.sh",
+              "size": 5293,
+              "sha256": "d9af3d6f2cde0eeb3c0a85b898828656c1c6d9d51f61ba38f9801030424f5147",
+              "contentType": "text/x-sh"
+            },
+            {
+              "path": "SKILL.md",
+              "size": 21091,
+              "sha256": "d27e7def38c5f31a17ad06846b92c76f58da4de21d6cfb25e0dfa75b8594bac9",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "assets/FEATURE_REQUESTS.md",
+              "size": 84,
+              "sha256": "a6291573936034efaad57b43b6f57bdb35ed627f01ce9309b2c781da63563c37",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "assets/ERRORS.md",
+              "size": 75,
+              "sha256": "731f4a26fee7074d11e999920e5c3ca63b0e025b75a4d9966429ee88a2cb5988",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "assets/SKILL-TEMPLATE.md",
+              "size": 3407,
+              "sha256": "3ee008f80d53e0e576f7e747ac4c4e040ff659f02d3f5689a95524a3696e4881",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "assets/LEARNINGS.md",
+              "size": 1135,
+              "sha256": "58b31d4cda7d1f2a6fdaf1aff06f45288e6cb0161dd1ed1bf2152c7f8c3c88da",
+              "contentType": "text/markdown"
+            }
+          ]
+        },
+        "provenance": {
+          "source": "unavailable",
+          "reason": "No server-resolved GitHub import provenance is stored for this version."
+        },
+        "security": {
+          "status": "clean",
+          "passed": true,
+          "rawStatus": "clean",
+          "verdict": "benign",
+          "confidence": "high",
+          "summary": "This skill keeps local learning notes and can optionally scan ended OpenClaw sessions for error snippets, but those behaviors are disclosed, local, and aligned with its purpose.",
+          "model": "gpt-5.5",
+          "checkedAt": 1783651483539,
+          "signals": {
+            "staticScan": {
+              "status": "clean",
+              "rawStatus": "clean",
+              "reasonCodes": [],
+              "summary": "No suspicious patterns detected.",
+              "engineVersion": "v2.4.26",
+              "checkedAt": 1783258083689
+            },
+            "virusTotal": {
+              "status": "clean",
+              "rawStatus": "clean",
+              "verdict": null,
+              "analysis": null,
+              "source": "engines",
+              "scanner": null,
+              "engineStats": {
+                "harmless": 0,
+                "malicious": 0,
+                "suspicious": 0,
+                "undetected": 65
+              },
+              "checkedAt": 1783262706793
+            },
+            "skillSpector": {
+              "status": "suspicious",
+              "rawStatus": "suspicious",
+              "score": 87,
+              "severity": "CRITICAL",
+              "recommendation": "DO_NOT_INSTALL",
+              "issueCount": 7,
+              "scannerVersion": "2.3.5",
+              "summary": null,
+              "error": null,
+              "checkedAt": 1783651458536
+            },
+            "dependencyRegistry": null
+          }
+        },
+        "signature": {
+          "status": "unsigned"
+        }
+      }
+    }
+  }
+}
