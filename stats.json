@@ -55,5 +55,6 @@
   "generator_model": {
     "qwen/qwen3.6-27b": 87
   },
-  "classifier_model": {}
+  "classifier_model": {},
+  "_rebuild": true
 }
