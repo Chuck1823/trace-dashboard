@@ -1,9 +1,12 @@
 {
-  "updated_at": "2026-08-04 00:49 UTC",
+  "updated_at": "2026-08-04 01:30 UTC",
   "unique_total": 87,
   "unique_labels": {
-    "unclassified": 63,
-    "general_assistant": 24
+    "devops": 70,
+    "general_assistant": 8,
+    "research": 5,
+    "data_entry_reporting": 3,
+    "booking_appointment": 1
   },
   "tracks": {
     "sft": {
@@ -16,8 +19,11 @@
       },
       "label_counts": {
         "_total": 87,
-        "unclassified": 63,
-        "general_assistant": 24
+        "devops": 70,
+        "general_assistant": 8,
+        "research": 5,
+        "data_entry_reporting": 3,
+        "booking_appointment": 1
       }
     },
     "agentic": {
@@ -30,7 +36,10 @@
       },
       "label_counts": {
         "_total": 87,
-        "general_assistant": 87
+        "data_entry_reporting": 1,
+        "devops": 60,
+        "research": 15,
+        "general_assistant": 11
       }
     },
     "distill": {
@@ -43,7 +52,10 @@
       },
       "label_counts": {
         "_total": 87,
-        "general_assistant": 87
+        "data_entry_reporting": 1,
+        "devops": 63,
+        "general_assistant": 12,
+        "research": 11
       }
     }
   },
