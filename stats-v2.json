@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-04 00:42 UTC",
+  "updated_at": "2026-08-04 00:48 UTC",
   "unique_total": 87,
   "unique_labels": {
     "unclassified": 63,
@@ -55,6 +55,5 @@
   "generator_model": {
     "qwen/qwen3.6-27b": 87
   },
-  "classifier_model": {},
-  "cache_bust": 2
+  "classifier_model": {}
 }
