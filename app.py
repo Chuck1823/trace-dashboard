@@ -36,6 +36,23 @@ def count_unique_traces():
     return unique, label_counts
 
 
+def collect_field_values(field_name):
+    """Collect distinct values for a given field across all sft traces."""
+    values = {}
+    dirpath = os.path.join(TRACES_DIR, "sft")
+    for fp in sorted(glob.glob(os.path.join(dirpath, "*.jsonl"))):
+        with open(fp) as fh:
+            for line in fh:
+                try:
+                    t = json.loads(line)
+                    v = t.get(field_name)
+                    if v:
+                        values[v] = values.get(v, 0) + 1
+                except json.JSONDecodeError:
+                    pass
+    return values
+
+
 def build_stats():
     tracks = {}
     for track_name in TRACKS:
@@ -66,6 +83,8 @@ def build_stats():
         }
 
     unique_total, unique_labels = count_unique_traces()
+    generator_models = collect_field_values("generator_model")
+    classifier_models = collect_field_values("classifier_model")
 
     stats = {
         "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
@@ -73,6 +92,8 @@ def build_stats():
         "unique_labels": unique_labels,
         "tracks": tracks,
         "defs": DEFS,
+        "generator_model": generator_models,
+        "classifier_model": classifier_models,
     }
 
     with open(STATS_FILE, "w") as f:
