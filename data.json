@@ -1,0 +1,60 @@
+{
+  "updated_at": "2026-08-04 00:42 UTC",
+  "unique_total": 87,
+  "unique_labels": {
+    "unclassified": 63,
+    "general_assistant": 24
+  },
+  "tracks": {
+    "sft": {
+      "total": 87,
+      "quality": {
+        "great": 39,
+        "good": 33,
+        "mediocre": 13,
+        "poor": 2
+      },
+      "label_counts": {
+        "_total": 87,
+        "unclassified": 63,
+        "general_assistant": 24
+      }
+    },
+    "agentic": {
+      "total": 87,
+      "quality": {
+        "great": 39,
+        "good": 33,
+        "mediocre": 13,
+        "poor": 2
+      },
+      "label_counts": {
+        "_total": 87,
+        "general_assistant": 87
+      }
+    },
+    "distill": {
+      "total": 87,
+      "quality": {
+        "great": 39,
+        "good": 33,
+        "mediocre": 13,
+        "poor": 2
+      },
+      "label_counts": {
+        "_total": 87,
+        "general_assistant": 87
+      }
+    }
+  },
+  "defs": {
+    "sft": "Plain text only. Compatible with every fine-tuning API (OpenAI, Together, Fireworks, Unsloth, LLaMA-Factory).",
+    "agentic": "Tool calls + results. Compatible with OpenAI, Together, Fireworks, vLLM.",
+    "distill": "SFT + internal reasoning/thinking. Captures full thought process for distillation."
+  },
+  "generator_model": {
+    "qwen/qwen3.6-27b": 87
+  },
+  "classifier_model": {},
+  "cache_bust": 2
+}

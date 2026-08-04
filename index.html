@@ -85,12 +85,12 @@
 
   <div id="dashboard"></div>
 
-  <div class="refresh-note">Rebuild stats: python3 experiment/trace-dashboard/app.py → push stats.json</div>
+  <div class="refresh-note">Rebuild stats: python3 experiment/trace-dashboard/app.py → push data.json</div>
 
   <script>
     async function load() {
-      try { const r = await fetch('stats.json'); render(await r.json()); }
-      catch(e) { document.body.innerHTML = '<p style="color:#ef5350;padding:1rem">Failed to load stats.json</p>'; }
+      try { const r = await fetch('data.json'); render(await r.json()); }
+      catch(e) { document.body.innerHTML = '<p style="color:#ef5350;padding:1rem">Failed to load data.json</p>'; }
     }
 
     const barColors = {
