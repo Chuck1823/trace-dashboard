@@ -575,7 +575,7 @@ for sp in session_files:
                     }
 
                 # Attach quality + metadata to all tracks
-                for k in ("quality", "score", "labels", "task_type", "vertical", "metadata"):
+                for k in ("quality", "score", "labels", "task_type", "vertical", "metadata", "generator_model", "models_used_in_session", "capability", "classifier_model"):
                     if k in t:
                         clean[k] = t[k]
 

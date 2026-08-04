@@ -1,61 +1,49 @@
 {
-  "updated_at": "2026-08-03 22:55 UTC",
-  "unique_total": 84,
+  "updated_at": "2026-08-04 00:32 UTC",
+  "unique_total": 87,
   "unique_labels": {
-    "devops": 67,
-    "general_assistant": 8,
-    "research": 5,
-    "data_entry_reporting": 3,
-    "booking_appointment": 1
+    "unclassified": 63,
+    "general_assistant": 24
   },
   "tracks": {
     "sft": {
-      "total": 84,
+      "total": 87,
       "quality": {
-        "great": 36,
-        "good": 32,
+        "great": 39,
+        "good": 33,
         "mediocre": 13,
-        "poor": 3
+        "poor": 2
       },
       "label_counts": {
-        "_total": 84,
-        "devops": 67,
-        "general_assistant": 8,
-        "research": 5,
-        "data_entry_reporting": 3,
-        "booking_appointment": 1
+        "_total": 87,
+        "unclassified": 63,
+        "general_assistant": 24
       }
     },
     "agentic": {
-      "total": 84,
+      "total": 87,
       "quality": {
-        "great": 36,
-        "good": 32,
+        "great": 39,
+        "good": 33,
         "mediocre": 13,
-        "poor": 3
+        "poor": 2
       },
       "label_counts": {
-        "_total": 84,
-        "data_entry_reporting": 1,
-        "devops": 60,
-        "research": 12,
-        "general_assistant": 11
+        "_total": 87,
+        "general_assistant": 87
       }
     },
     "distill": {
-      "total": 84,
+      "total": 87,
       "quality": {
-        "great": 36,
-        "good": 32,
+        "great": 39,
+        "good": 33,
         "mediocre": 13,
-        "poor": 3
+        "poor": 2
       },
       "label_counts": {
-        "_total": 84,
-        "data_entry_reporting": 1,
-        "devops": 62,
-        "general_assistant": 11,
-        "research": 10
+        "_total": 87,
+        "general_assistant": 87
       }
     }
   },
@@ -63,5 +51,9 @@
     "sft": "Plain text only. Compatible with every fine-tuning API (OpenAI, Together, Fireworks, Unsloth, LLaMA-Factory).",
     "agentic": "Tool calls + results. Compatible with OpenAI, Together, Fireworks, vLLM.",
     "distill": "SFT + internal reasoning/thinking. Captures full thought process for distillation."
-  }
+  },
+  "generator_model": {
+    "qwen/qwen3.6-27b": 87
+  },
+  "classifier_model": {}
 }
