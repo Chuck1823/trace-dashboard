@@ -89,7 +89,7 @@
 
   <script>
     async function load() {
-      try { const r = await fetch('stats.json'); render(await r.json()); }
+      try { const r = await fetch('stats.json?ts=' + Date.now()); render(await r.json()); }
       catch(e) { document.body.innerHTML = '<p style="color:#ef5350;padding:1rem">Failed to load stats.json</p>'; }
     }
 
