@@ -56,5 +56,5 @@
     "qwen/qwen3.6-27b": 87
   },
   "classifier_model": {},
-  "_rebuild": true
+  "cache_bust": 2
 }
