@@ -89,8 +89,7 @@
 
   <script>
     async function load() {
-      try { const r = await fetch('stats-2026.json?ts=' + Date.now()); render(await r.json()); }
-      catch(e) { document.body.innerHTML = '<p style="color:#ef5350;padding:1rem">Failed to load stats-2026.json</p>'; }
+      const _inlineData = {"updated_at": "2026-08-04 02:08 UTC", "unique_total": 87, "unique_labels": {"devops": 70, "general_assistant": 8, "research": 5, "data_entry_reporting": 3, "booking_appointment": 1}, "tracks": {"sft": {"total": 87, "quality": {"great": 39, "good": 33, "mediocre": 13, "poor": 2}, "label_counts": {"_total": 87, "devops": 70, "general_assistant": 8, "research": 5, "data_entry_reporting": 3, "booking_appointment": 1}}, "agentic": {"total": 87, "quality": {"great": 39, "good": 33, "mediocre": 13, "poor": 2}, "label_counts": {"_total": 87, "data_entry_reporting": 1, "devops": 60, "research": 15, "general_assistant": 11}}, "distill": {"total": 87, "quality": {"great": 39, "good": 33, "mediocre": 13, "poor": 2}, "label_counts": {"_total": 87, "data_entry_reporting": 1, "devops": 63, "general_assistant": 12, "research": 11}}}, "defs": {"sft": "Plain text only. Compatible with every fine-tuning API (OpenAI, Together, Fireworks, Unsloth, LLaMA-Factory).", "agentic": "Tool calls + results. Compatible with OpenAI, Together, Fireworks, vLLM.", "distill": "SFT + internal reasoning/thinking. Captures full thought process for distillation."}, "generator_model": {"qwen/qwen3.6-27b": 87}, "classifier_model": {}}; render(_inlineData);
     }
 
     const barColors = {

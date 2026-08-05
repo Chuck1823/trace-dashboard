@@ -1,49 +1,63 @@
 {
-  "updated_at": "2026-08-04 00:49 UTC",
-  "unique_total": 87,
+  "updated_at": "2026-08-05 14:09 UTC",
+  "unique_total": 93,
   "unique_labels": {
-    "unclassified": 63,
-    "general_assistant": 24
+    "devops": 76,
+    "marketing_promotions": 1,
+    "general_assistant": 8,
+    "research": 5,
+    "coding": 2,
+    "booking_appointment": 1
   },
   "tracks": {
     "sft": {
-      "total": 87,
+      "total": 93,
       "quality": {
-        "great": 39,
-        "good": 33,
+        "great": 43,
+        "good": 35,
         "mediocre": 13,
         "poor": 2
       },
       "label_counts": {
-        "_total": 87,
-        "unclassified": 63,
-        "general_assistant": 24
+        "_total": 93,
+        "devops": 76,
+        "marketing_promotions": 1,
+        "general_assistant": 8,
+        "research": 5,
+        "coding": 2,
+        "booking_appointment": 1
       }
     },
     "agentic": {
-      "total": 87,
+      "total": 93,
       "quality": {
-        "great": 39,
-        "good": 33,
+        "great": 43,
+        "good": 35,
         "mediocre": 13,
         "poor": 2
       },
       "label_counts": {
-        "_total": 87,
-        "general_assistant": 87
+        "_total": 93,
+        "devops": 64,
+        "research": 13,
+        "marketing_promotions": 2,
+        "general_assistant": 14
       }
     },
     "distill": {
-      "total": 87,
+      "total": 93,
       "quality": {
-        "great": 39,
-        "good": 33,
+        "great": 43,
+        "good": 35,
         "mediocre": 13,
         "poor": 2
       },
       "label_counts": {
-        "_total": 87,
-        "general_assistant": 87
+        "_total": 93,
+        "data_entry_reporting": 1,
+        "devops": 61,
+        "research": 20,
+        "general_assistant": 11
       }
     }
   },
@@ -52,8 +66,6 @@
     "agentic": "Tool calls + results. Compatible with OpenAI, Together, Fireworks, vLLM.",
     "distill": "SFT + internal reasoning/thinking. Captures full thought process for distillation."
   },
-  "generator_model": {
-    "qwen/qwen3.6-27b": 87
-  },
+  "generator_model": {},
   "classifier_model": {}
 }
